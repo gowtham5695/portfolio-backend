@@ -33,18 +33,30 @@ def serialize_list(docs) -> list:
     return [serialize_doc(doc) for doc in docs]
 
 async def init_db():
+    logger.info("--- STARTING DATABASE INITIALIZATION ---")
     # 1. Admin Seeding (Using clashing-safe portfolio settings)
     try:
+        logger.info(f"Targeting database name: {db.name}")
         admin_count = await admin_collection.count_documents({})
+        logger.info(f"Current admin count in collection '{admin_collection.name}': {admin_count}")
         if admin_count == 0:
-            hashed_pwd = hash_password(settings.PORTFOLIO_ADMIN_PASSWORD)
+            username = settings.PORTFOLIO_ADMIN_USERNAME
+            password = settings.PORTFOLIO_ADMIN_PASSWORD
+            logger.info(f"Seeding admin user with username: '{username}'")
+            if not password:
+                logger.error("PORTFOLIO_ADMIN_PASSWORD is empty or None!")
+                raise ValueError("PORTFOLIO_ADMIN_PASSWORD cannot be empty")
+            
+            hashed_pwd = hash_password(password)
             await admin_collection.insert_one({
-                "username": settings.PORTFOLIO_ADMIN_USERNAME,
+                "username": username,
                 "password": hashed_pwd
             })
-            logger.info(f"Database seeded: Admin user created with username '{settings.PORTFOLIO_ADMIN_USERNAME}'")
+            logger.info(f"Database seeded successfully: Admin user '{username}' created.")
+        else:
+            logger.info("Admin user already exists, skipping seeding.")
     except Exception as e:
-        logger.error(f"Error seeding admin user: {e}")
+        logger.error(f"CRITICAL ERROR during admin seeding: {e}", exc_info=True)
 
     # 2. Profile Seeding
     try:

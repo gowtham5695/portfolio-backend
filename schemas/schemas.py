@@ -46,6 +46,8 @@ class ProfileUpdate(BaseModel):
     availability_status: str = "Available for work"
     about_bio: str = ""
     about_title: str = ""
+    about_card_title: str = "Constant Learning"
+    about_card_desc: str = "I'm continuously refining my knowledge of algorithms, systems architecture, and UI/UX design trends to deliver top-notch products."
     footer_text: str = ""
     section_visibility: SectionVisibility = Field(default_factory=SectionVisibility)
 

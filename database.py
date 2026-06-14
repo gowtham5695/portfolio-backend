@@ -82,6 +82,8 @@ async def init_db():
                 "availability_status": "Available for Freelance & Full-time",
                 "about_bio": "I am a dedicated full-stack developer with experience in python, react, and cloud technologies. I love building tools that solve real-world problems and creating interfaces that are a joy to use.",
                 "about_title": "Crafting digital experiences with precision & code",
+                "about_card_title": "Constant Learning",
+                "about_card_desc": "I'm continuously refining my knowledge of algorithms, systems architecture, and UI/UX design trends to deliver top-notch products.",
                 "footer_text": "Jane Doe. All rights reserved.",
                 "section_visibility": {
                     "hero": True,

@@ -1,15 +1,23 @@
 import os
 import sys
+import types
 import logging
 from contextlib import asynccontextmanager
 
-# Bootstrap the sys.path to allow execution from either backend/ or root folder
+# Bootstrap the sys.path and sys.modules to allow execution from either backend/ or root folder
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
+
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
+
+# If 'backend' folder doesn't exist inside current_dir, map 'backend' module to current_dir
+if not os.path.isdir(os.path.join(current_dir, "backend")):
+    backend_module = types.ModuleType("backend")
+    backend_module.__path__ = [current_dir]
+    sys.modules["backend"] = backend_module
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware

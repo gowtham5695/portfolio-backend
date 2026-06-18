@@ -20,6 +20,7 @@ certifications_collection = db["certifications"]
 experience_collection = db["experience"]
 messages_collection = db["messages"]
 custom_sections_collection = db["custom_sections"]
+job_applications_collection = db["job_applications"]
 
 def serialize_doc(doc) -> dict:
     if not doc:

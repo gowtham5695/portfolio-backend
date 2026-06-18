@@ -134,3 +134,16 @@ class CustomSectionCreate(BaseModel):
 
 class CustomSectionResponse(CustomSectionCreate):
     id: str
+
+# ----------------- JOB APPLICATION SCHEMAS -----------------
+class JobApplicationCreate(BaseModel):
+    company: str
+    role: str
+    location: str = "Remote"  # Remote, Hybrid, Onsite
+    status: str = "Applied"   # Applied, Interviewing, Offer, Rejected, Declined
+    date_applied: str         # e.g. "2026-06-18"
+    job_link: Optional[str] = ""
+    notes: Optional[str] = ""
+
+class JobApplicationResponse(JobApplicationCreate):
+    id: str

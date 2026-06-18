@@ -22,7 +22,7 @@ if not os.path.isdir(os.path.join(current_dir, "backend")):
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.database import init_db
-from backend.routers import auth, profile, skills, projects, education, certifications, experience, messages, custom_sections
+from backend.routers import auth, profile, skills, projects, education, certifications, experience, messages, custom_sections, job_applications
 
 # Configure logger
 logging.basicConfig(
@@ -66,6 +66,7 @@ app.include_router(certifications.router, prefix="/api")
 app.include_router(experience.router, prefix="/api")
 app.include_router(messages.router, prefix="/api")
 app.include_router(custom_sections.router, prefix="/api")
+app.include_router(job_applications.router, prefix="/api")
 
 @app.get("/")
 async def root():

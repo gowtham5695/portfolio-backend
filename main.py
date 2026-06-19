@@ -68,7 +68,7 @@ app.include_router(messages.router, prefix="/api")
 app.include_router(custom_sections.router, prefix="/api")
 app.include_router(job_applications.router, prefix="/api")
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 async def root():
     return {
         "status": "online",
